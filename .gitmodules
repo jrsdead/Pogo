@@ -1,0 +1,3 @@
+[submodule "pogo/lib/php-activerecord"]
+	path = pogo/lib/php-activerecord
+	url = git://github.com/kla/php-activerecord.git
