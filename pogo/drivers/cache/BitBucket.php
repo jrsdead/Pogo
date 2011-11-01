@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of BitBucket
- *
- * @author jrsdead
- */
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.
@@ -33,7 +28,7 @@
  * 
  * PROJECT: pogo
  * FILE: BitBucket.php
- * DESCRIPTION: DESCRIPTION GOES HERE
+ * DESCRIPTION: no cache
  */
 
 namespace Pogo\Drivers\Cache;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of ConfigReader
- *
- * @author jrsdead
- */
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.

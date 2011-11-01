@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of index
- *
- * @author jrsdead
- */
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.
@@ -33,7 +28,7 @@
  * 
  * PROJECT: pogo
  * FILE: index.php
- * DESCRIPTION: DESCRIPTION GOES HERE
+ * DESCRIPTION: routing page all calls go through
  */
 
 require_once('./pogo/Pogo.php');

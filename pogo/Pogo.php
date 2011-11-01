@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Pogo
- *
- * @author jrsdead
- */
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.
@@ -33,7 +28,7 @@
  * 
  * PROJECT: pogo
  * FILE: Pogo.php
- * DESCRIPTION: DESCRIPTION GOES HERE
+ * DESCRIPTION: The Pogo bootstrap file
  */
 
 namespace Pogo;

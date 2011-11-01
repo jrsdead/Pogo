@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of Memcached
- *
- * @author jrsdead
- */
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.
@@ -33,7 +28,7 @@
  * 
  * PROJECT: pogo
  * FILE: Memcached.php
- * DESCRIPTION: DESCRIPTION GOES HERE
+ * DESCRIPTION: Memcached driver
  */
 
 namespace Pogo\Drivers\Cache;

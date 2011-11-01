@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Description of CacheDriver
- *
- * @author jrsdead
- */
+
 /*
  * Copyright (c) 2011, jrsdead
  * All rights reserved.
@@ -33,7 +29,7 @@
  * 
  * PROJECT: pogo
  * FILE: CacheDriver.php
- * DESCRIPTION: DESCRIPTION GOES HERE
+ * DESCRIPTION: Cache driver interface
  */
 
 namespace Pogo\Interfaces\Drivers;
