@@ -40,7 +40,7 @@ namespace Pogo;
 use Pogo\Requests\InternalRequest;
 use Pogo\Models\User;
 
-class Quark
+class Util
 {
     static function fileExistsInPath($fileName) {
 	$searchPaths = explode(PATH_SEPARATOR, get_include_path());

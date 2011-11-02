@@ -32,6 +32,10 @@
  */
 
 namespace Pogo;
+use Photon\Controllers\ControllerStore;
+use Photon\Interfaces\Request;
+use Photon\Requests\InternalRequest;
+use Photon\Routers\WebRouter;
 
 class Pogo
 {
@@ -51,6 +55,11 @@ class Pogo
     private function __construct() {
 	$this->config = null;
 	$this->cache = null;
+	$this->serverRoot;
+	$this->siteName = null;
+	$this->requestStack = array();
+	$this->router = new WebRouter();
+	$this->controllers = new ControllerStore();
     }
     
     public static function lock() {
