@@ -38,10 +38,10 @@ class Pogo
     private static $instance;
     public $config;
     public $cache;
-    private $dbuser;
-    private $dbpass;
-    private $dbhost;
-    private $dbdatabase;
+    private static $dbuser;
+    private static $dbpass;
+    private static $dbhost;
+    private static $dbdatabase;
     
     private function __construct() {
 	$this->config = null;
@@ -76,10 +76,10 @@ class Pogo
 	    trigger_error("Requested drivers could not connect", E_USER_ERROR);
 	}
 	
-	$dbuser = Pogo::lock()->config->getKey("ActiveRecord","user","pogo");
-	$dbpass = Pogo::lock()->config->getKey("ActiveRecord","password","pogopass");
-	$dbhost = Pogo::lock()->config->getKey("ActiveRecord","host","localhost");
-	$dbdatabase = Pogo::lock()->config->getKey("ActiveRecord","database","pogo");
+	$this->dbuser = Pogo::lock()->config->getKey("ActiveRecord","user","pogo");
+	$this->dbpass = Pogo::lock()->config->getKey("ActiveRecord","password","pogopass");
+	$this->dbhost = Pogo::lock()->config->getKey("ActiveRecord","host","localhost");
+	$this->dbdatabase = Pogo::lock()->config->getKey("ActiveRecord","database","pogo");
 	
 	require_once 'php-activerecord/ActiveRecord.php';
 	
@@ -87,7 +87,7 @@ class Pogo
 	{
 	   $cfg->set_model_directory('models');
 	   $cfg->set_connections(array(
-	       'development' => 'mysql://'.$dbuser.":".$dbpass."@".$dbhost."/".$dbdatabase));
+	       'development' => 'mysql://'.self::$dbuser.":".self::$dbpass."@".self::$dbhost."/".self::$dbdatabase));
 	});
     }
     
