@@ -50,4 +50,3 @@ interface Driver
 	 */
 	public function disconnect();
 }
-?>

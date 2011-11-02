@@ -39,4 +39,4 @@
 namespace Pogo\Models;
 
 class User extends \ActiveRecord\Model {}
-?>
+

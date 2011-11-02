@@ -147,5 +147,3 @@ class ControllerChain extends BaseController
 	$this->cachedOrder = NULL;
     }
 }
-
-?>
