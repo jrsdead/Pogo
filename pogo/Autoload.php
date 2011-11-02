@@ -51,7 +51,7 @@ class Autoload
 		if(substr($name, 0, 5) != "Pogo\\") {
 			return;
 		}
-		static::loadClasses(substr($name,7), static::$CoreBase);
+		static::loadClasses(substr($name,5), static::$CoreBase);
 	}
 	
 	static private function loadClasses($name, $base) {
