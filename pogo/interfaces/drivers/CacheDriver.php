@@ -42,4 +42,3 @@ interface CacheDriver extends Driver
 	public function keyExists($key);
 }
 ?>
-?>

@@ -67,3 +67,4 @@ class ControllerStore implements ArrayAccess
     }
 }
 
+?>

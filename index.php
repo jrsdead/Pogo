@@ -36,4 +36,4 @@ Pogo\Pogo::bootstrap();
 echo Pogo\Pogo::lock()->getSiteName();
 Pogo\Pogo::lock()->cache->setKey('Pogotest',Pogo\Pogo::lock()->getSiteName().'1',300);
 echo Pogo\Pogo::lock()->cache->getKey('Pogotest');
-
+?>
