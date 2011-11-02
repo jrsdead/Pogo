@@ -69,11 +69,10 @@ class Smarty implements TemplateDriver
 	// Create the smarty object
 	$this->smarty = new \Smarty();
 	// Register our template resource
-	$this->smarty->register->resource('pogo', array($this,
-					      'smartyGetTemplate',
-					      'smartyGetTimestamp',
-					      'smartyGetSecure',
-					      'smartyGetTrusted'));
+	$this->smarty->registerResource('pogo', array(array($this,'smartyGetTemplate'),
+					      array($this,'smartyGetTimestamp'),
+					      array($this,'smartyGetSecure'),
+					      array($this,'smartyGetTrusted')));
 	// Add a function to generate links to controller actions
 	$this->smarty->register->templateFunction('action', array($this, 'smartyGetActionURL'));
 	// And tack on our default view directory
