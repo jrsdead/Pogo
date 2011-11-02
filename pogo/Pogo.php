@@ -100,7 +100,7 @@ class Pogo
 	$cfg = \ActiveRecord\Config::instance();	
 	//\ActiveRecord\Config::initialize(function($cfg)
 	//{
-	   $cfg->set_model_directory(Pogo::lock()->getServerRoot().'models');
+	   $cfg->set_model_directory(Pogo::lock()->getServerRoot().'pogo/models');
 	   $cfg->set_connections(array(
 	       'development' => 'mysql://'.$this->dbuser.":".$this->dbpass."@".$this->dbhost."/".$this->dbdatabase));
 	//});
