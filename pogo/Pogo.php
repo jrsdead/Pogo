@@ -42,6 +42,7 @@ class Pogo
     private static $instance;
     public $config;
     public $cache;
+    public $template;
     private $dbuser;
     private $dbpass;
     private $dbhost;
@@ -55,6 +56,7 @@ class Pogo
     private function __construct() {
 	$this->config = null;
 	$this->cache = null;
+	$this->template = null;
 	$this->serverRoot;
 	$this->siteName = null;
 	$this->requestStack = array();
@@ -108,20 +110,25 @@ class Pogo
     
     private function checkDependencies() {
 	$cacheDriver = __NAMESPACE__ . "\\Drivers\\Cache\\". $this->config->getKey("drivers", "cache", "BitBucket");
+	$templateDriver = __NAMESPACE__ . "\\Drivers\\Template\\" . $this->config->getKey("drivers", "template", "Smarty");
 	
 	$retvalue = true;
 	$retvalue = $cacheDriver::usable() ? $retvalue : false;
+	$retvalue = $templateDriver::usable() ? $retvalue : false;
 	
 	return $retvalue;
     }
 
     private function connectDrivers() {
 	$cacheDriver = __NAMESPACE__ . "\\Drivers\\Cache\\" . $this->config->getKey("drivers", "cache", "BitBucket");
+	$templateDriver = __NAMESPACE__ . "\\Drivers\\Template\\" . $this->config->getKey("drivers", "template", "Smarty");
 	
 	$this->cache = new $cacheDriver();
+	$this->template = new $templateDriver();
 	
 	$retvalue = true;
 	$retvalue = $this->cache->connect() ? $retvalue : false;
+	$retvalue = $this->template->connect() ? $retvalue : false;
 	
 	return $retvalue;
     }
