@@ -34,6 +34,6 @@
 require_once('./pogo/Pogo.php');
 Pogo\Pogo::bootstrap();
 echo Pogo\Pogo::lock()->getSiteName();
-Pogo\Pogo::lock()->cache->setKey('Pogotest',Pogo\Pogo::lock()->getSiteName(),300);
+Pogo\Pogo::lock()->cache->setKey('Pogotest',Pogo\Pogo::lock()->getSiteName().'1',300);
 echo Pogo\Pogo::lock()->cache->getKey('Pogotest');
 ?>
