@@ -32,10 +32,10 @@
  */
 
 namespace Pogo;
-use Photon\Controllers\ControllerStore;
-use Photon\Interfaces\Request;
-use Photon\Requests\InternalRequest;
-use Photon\Routers\WebRouter;
+use Pogo\Controllers\ControllerStore;
+use Pogo\Interfaces\Request;
+use Pogo\Requests\InternalRequest;
+use Pogo\Routers\WebRouter;
 
 class Pogo
 {
