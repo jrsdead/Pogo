@@ -42,6 +42,11 @@ class Pogo
     private $dbpass;
     private $dbhost;
     private $dbdatabase;
+    public $siteName;
+    public $serverRoot;
+    private $requestStack;
+    public $router;
+    public $controllers;
     
     private function __construct() {
 	$this->config = null;
@@ -110,6 +115,79 @@ class Pogo
 	$retvalue = $this->cache->connect() ? $retvalue : false;
 	
 	return $retvalue;
+    }
+    
+    private function registerErrorHandlers() {
+	set_error_handler(array($this, "errorHandler"));
+	set_exception_handler(array($this, "exceptionHandler"));
+	register_shutdown_function(array($this, "fatalErrorHandler"));
+	error_reporting(E_ALL ^ E_NOTICE);
+    }
+
+    public function errorHandler($errorNo, $errorStr, $errorFile, $errorLine, $errorContext) {
+	$err = new Error($errorNo, $errorStr, $errorFile, $errorLine, $errorContext);
+	return $this->handlePogoError($err);
+    }
+
+    public function exceptionHandler($ex) {
+	$err = new Error($ex->getCode(), $ex->getMessage(), $ex->getFile(), $ex->getLine(), $ex);
+	return $this->handlePogoError($err);
+    }
+
+    public function fatalErrorHandler() {
+	$phpErr = error_get_last();
+
+	if($phpErr) {
+	    $PogoStream = dirname($_SERVER["SCRIPT_FILENAME"]);
+	    chdir($PogoStream);
+	    $err = new Error($phpErr["type"], $phpErr["message"], $phpErr["file"], $phpErr["line"], NULL);
+	    $this->handlePogoError($err, true);
+	}
+    }
+
+    public function handlePogoError(Error $err, $forceShow = false) {
+	$this->providers["errors"]->logError($err);
+	if($err->getErrNo() & E_ERROR || $forceShow) {
+	    $parameters = array("code" => 500, "message" => "An error has occurred. Please try again later.", "internalError" => $err);
+	    $errorRequest = new InternalRequest("error", "display", $parameters);
+	    Pogo::lock()->dispatchRequest($errorRequest, true);
+	    die();
+	}
+	return false;
+    }
+
+    public function getSiteName() {
+	return $this->siteName;
+    }
+
+    public function dispatchRequest(Request $req, $immediate = false) {
+	if($immediate) {
+	    $req->execute();
+	    return;
+	}
+
+	$stackOrdinal = count($this->requestStack);
+	$this->requestStack[] = $req;
+
+	$req->execute();
+    }
+
+    public function getInitiatingRequest() {
+	if($this->requestStack && count($this->requestStack)) {
+	    return $this->requestStack[0];
+	}
+	return NULL;
+    }
+
+    public function getExecutingRequest() {
+	if($this->requestStack && count($this->requestStack)) {
+	    return $this->requestStack[count($this->requestStack)-1];
+	}
+	return NULL;
+    }
+    
+    public function getServerRoot() {
+	return $this->serverRoot;
     }
 }
 ?>
