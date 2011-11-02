@@ -104,5 +104,20 @@ class ConfigReader implements Driver
 	    return null;
 	}
     }
+
+    // Interface implementation
+    public static function usable() {
+	    return true;
+    }
+
+    // Connectionless driver - just return true
+    public function connect() {
+	    return true;
+    }
+
+    // Connectionless driver - just return true
+    public function disconnect() {
+	    return true;
+    }
 }
 ?>
