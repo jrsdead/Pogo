@@ -33,4 +33,5 @@
 
 require_once('./pogo/Pogo.php');
 Pogo\Pogo::bootstrap();
+echo Pogo\Pogo::lock()->getSiteName();
 ?>
