@@ -59,8 +59,8 @@ class Pogo
 	$serverRoot = dirname ( __FILE__ );
 	set_include_path($serverRoot . "/lib" . PATH_SEPARATOR . get_include_path());
 	session_start();
-//	require_once($serverRoot . '/Autoload.php');
-//	Autoload::loadAutoLoader($serverRoot);
+	require_once($serverRoot . '/Autoload.php');
+	Autoload::loadPogoAutoLoader($serverRoot);
 	Pogo::lock()->startup();
     }
     
