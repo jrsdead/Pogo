@@ -119,11 +119,11 @@ class Smarty implements TemplateDriver
             $view = $view . ".tpl";
 	}
         //$tpl = $this->smarty->createTemplate($view);
-        $tpl->assign('title', $view);
-	$tpl->assign("pogo", Pogo::lock());
-	$tpl->assign("user", Util::getCurrentUser());
+        $this->smarty->assign('title', $view);
+	$this->smarty->assign("pogo", Pogo::lock());
+	$this->smarty->assign("user", Util::getCurrentUser());
         foreach($variables as $key => $val) {
-            $tpl->assign($key, $val);
+            $this->smarty->assign($key, $val);
         }
         $this->smarty->display(Util::PogoPath().DIRECTORY_SEPARATOR."views/default".DIRECTORY_SEPARATOR.$view);
     }
