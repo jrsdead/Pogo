@@ -51,7 +51,7 @@ class login extends BaseController
     }
     
     function runLogin(Request $request) {
-	$origRequest = Pogo::pen()->getInitiatingRequest();
+	$origRequest = Pogo::lock()->getInitiatingRequest();
 	$params = array();
 	
 	if($request != $origRequest) {
