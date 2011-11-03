@@ -52,6 +52,7 @@ class Pogo
     private $requestStack;
     public $router;
     public $controllers;
+    public $providers;
     
     private function __construct() {
 	$this->config = null;
@@ -62,6 +63,7 @@ class Pogo
 	$this->requestStack = array();
 	$this->router = new WebRouter();
 	$this->controllers = new ControllerStore();
+	$this->providers = new ProviderStore();
     }
     
     public static function lock() {
