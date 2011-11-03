@@ -52,7 +52,7 @@ class Util
 	return false;
     }
     
-    static function PogoPath($fileList) {
+    static function PogoPath() {
 	return dirname(__FILE__);
     }
     
