@@ -48,6 +48,7 @@ class Smarty implements TemplateDriver
     private $smarty;
     private $theme;
     private $formats;
+    private $tpl;
     
     public static function usable() {
 	// Try to include the Smarty class, and see whether it exists
@@ -117,14 +118,14 @@ class Smarty implements TemplateDriver
         if(strpos($view, "pogo:") !== 0) {
             $view = $view . ".tpl";
 	}
-        $tpl = $this->smarty->createTemplate($format.DIRECTORY_SEPARATOR.$view);
-        $tpl->assign('title', $view);
-	$tpl>assign("pogo", Pogo::lock());
-	$tpl->assign("user", Util::getCurrentUser());
+        $this->tpl = $this->smarty->createTemplate($format.DIRECTORY_SEPARATOR.$view);
+        $this->tpl->assign('title', $view);
+	$this->tpl>assign("pogo", Pogo::lock());
+	$this->tpl->assign("user", Util::getCurrentUser());
         foreach($variables as $key => $val) {
-            $tpl->assign($key, $val);
+            $this->tpl->assign($key, $val);
         }
-        $tpl->display();
+        $this->tpl->display();
     }
     
     public function clearCache() {
