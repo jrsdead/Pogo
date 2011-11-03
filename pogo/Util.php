@@ -53,13 +53,7 @@ class Util
     }
     
     static function PogoPath($fileList) {
-	if(is_array($fileList)) {
-	    array_unshift($fileList, Pogo::lock()->getServerRoot());
-	}
-	else {
-	    $fileList = array(Pogo::lock()->getServerRoot(), $fileList);
-	}
-	return implode(DIRECTORY_SEPARATOR, $fileList);
+	return dirname(__FILE__);
     }
     
     static function getURL($controller, $action, $parameters = array()) {
