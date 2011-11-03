@@ -59,5 +59,14 @@ class login extends BaseController
 	}
 	Pogo::lock()->template->render("login/showLogin", $request->getOutputFormat(), $params);
     }
+    
+    function runTakeLogin(Request $request) {
+	$args = $request->getParameters();
+	
+	if(!$user) {
+	    Util::showError(401, "Invalid username or password");
+	    return;
+	}
+    }
 }
 ?>
