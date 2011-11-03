@@ -73,7 +73,7 @@ class Util
     static function getCurrentUser() {
 	// Check whether we have a logged in user
 	if(isset($_SESSION["logged_user"]) && $_SESSION["logged_user"]) {
-	    return User::find_by_username($_SESSION["logged_user"]);
+	    return User::find($_SESSION["logged_user"]);
 	}
 	return NULL;
     }
