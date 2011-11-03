@@ -41,7 +41,7 @@ namespace Pogo\Controllers;
 use Pogo\Util;
 use Pogo\Pogo;
 use Pogo\Interfaces\Request;
-//use Pogo\Models\User;
+use Pogo\Models\User;
 use Pogo\Requests\RedirectRequest;
 
 class login extends BaseController
