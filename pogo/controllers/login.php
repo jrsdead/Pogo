@@ -57,7 +57,7 @@ class login extends BaseController
 	if($request != $origRequest) {
 	    
 	}
-	Pogo::pen()->template->render("login/showLogin", $request->getOutputFormat(), $params);
+	Pogo::lock()->template->render("login/showLogin", $request->getOutputFormat(), $params);
     }
 }
 ?>
