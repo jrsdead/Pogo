@@ -76,7 +76,7 @@ class Smarty implements TemplateDriver
 	// Add a function to generate links to controller actions
 	$this->smarty->registerPlugin('function','action',array($this, 'smartyGetActionURL'));
 	// And tack on our default view directory
-	$this->addTemplateDir(Util::PogoPath("views"));
+	$this->smarty->addTemplateDir(Pogo::lock()->serverRoot.Util::PogoPath("views"));
 	// And set it to use the "pogo" theme by default
 	$this->setTheme("pogo");
     }
@@ -117,7 +117,7 @@ class Smarty implements TemplateDriver
         if(strpos($view, "pogo:") !== 0) {
             $view = $view . ".tpl";
 	}
-        $tpl = $this->smarty->createTemplate(Pogo::lock()->serverRoot.'pogo'.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$format.DIRECTORY_SEPARATOR.$view);
+        $tpl = $this->smarty->createTemplate($format.DIRECTORY_SEPARATOR.$view);
         $tpl->assign('title', $view);
 	$tpl->assign("pogo", Pogo::lock());
 	$tpl->assign("user", Util::getCurrentUser());
