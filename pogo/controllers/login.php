@@ -63,14 +63,14 @@ class login extends BaseController
     function runTakeLogin(Request $request) {
 	$args = $request->getParameters();
 	
-	$user = User::find(1);
+	$user = User::find_by_username_and_password($args["user"],$args["pass"]);
 	
 	if(!$user) {
 	    Util::showError(401, "Invalid username or password");
 	    return;
 	}
 	
-	$_SESSION["logged_user"] = $user->ID;
+	$_SESSION["logged_user"] = $user->id;
 	$redirRequest = new RedirectRequest("index", NULL);
 	Pogo::lock()->dispatchRequest($redirRequest);
 	
