@@ -68,6 +68,9 @@ class Smarty implements TemplateDriver
 
 	// Create the smarty object
 	$this->smarty = new \Smarty();
+	$this->smarty->compile_dir = sys_get_temp_dir();
+	$this->smarty->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "default");
+	$this->smarty->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "pogo");
 	// Register our template resource
 	$this->smarty->registerResource('pogo', array(array($this,'smartyGetTemplate'),
 					      array($this,'smartyGetTimestamp'),
