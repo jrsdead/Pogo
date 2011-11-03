@@ -52,8 +52,14 @@ class Util
 	return false;
     }
     
-    static function PogoPath() {
-	return dirname(__FILE__);
+    static function PogoPath($fileList) {
+	if(is_array($fileList)) {
+	    array_unshift($fileList, 'pogo');
+	}
+	else {
+	    $fileList = array('pogo', $fileList);
+	}
+	return implode(DIRECTORY_SEPARATOR, $fileList);
     }
     
     static function getURL($controller, $action, $parameters = array()) {
