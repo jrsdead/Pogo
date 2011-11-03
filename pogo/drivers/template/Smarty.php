@@ -125,7 +125,7 @@ class Smarty implements TemplateDriver
         foreach($variables as $key => $val) {
             $this->smarty->assign($key, $val);
         }
-        $this->smarty->display(Util::PogoPath().DIRECTORY_SEPARATOR."views/default".DIRECTORY_SEPARATOR.$view);
+        $this->smarty->display('file:'.Util::PogoPath().DIRECTORY_SEPARATOR."views/default".DIRECTORY_SEPARATOR.$view);
     }
     
     public function clearCache() {
