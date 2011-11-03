@@ -48,6 +48,6 @@ interface TemplateDriver extends Driver
     
     public function clearCache();
     
-    public function render($view, $variables);
+    public function render($view, $format, $variables);
 }
 ?>

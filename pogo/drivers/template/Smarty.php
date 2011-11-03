@@ -113,12 +113,14 @@ class Smarty implements TemplateDriver
 	array_shift($this->formats);
     }
     
-    public function render($view, $variables = array()) {
+    public function render($view, $format, $variables = array()) {
         if(strpos($view, "pogo:") !== 0) {
             $view = $view . ".tpl";
 	}
-        $tpl = $this->smarty->createTemplate($view);
+        $tpl = $this->smarty->createTemplate($format.DIRECTORY_SEPARATOR.$view);
         $tpl->assign('title', $view);
+	$tpl>assign("pogo", Pogo::lock());
+	$tpl->assign("user", Util::getCurrentUser());
         foreach($variables as $key => $val) {
             $tpl->assign($key, $val);
         }
