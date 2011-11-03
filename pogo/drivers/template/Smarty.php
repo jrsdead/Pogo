@@ -133,7 +133,7 @@ class Smarty implements TemplateDriver
 	$this->smarty->assign("pogo", Pogo::lock());
 	$this->smarty->assign("user", Util::getCurrentUser());
 	$this->pushFormat($format);
-	$this->smarty->display("pogo:" . $view . ".tpl");
+	$this->smarty->display($view . ".tpl");
 	$this->popFormat();
     }
     
