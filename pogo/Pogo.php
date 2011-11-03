@@ -33,6 +33,7 @@
 
 namespace Pogo;
 use Pogo\Controllers\ControllerStore;
+use Pogo\Providers\ProviderStore;
 use Pogo\Interfaces\Request;
 use Pogo\Requests\InternalRequest;
 use Pogo\Routers\WebRouter;
