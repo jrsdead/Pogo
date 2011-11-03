@@ -35,4 +35,27 @@
  * FILE: InternalRequest.php
  * DESCRIPTION: DESCRIPTION GOES HERE
  */
+
+namespace Pogo\Requests;
+
+use Pogo\Pogo;
+use Pogo\Util;
+
+class InternalRequest extends BaseRequest
+{
+    public function __construct($controller, $action, $parameters = array()) {
+	$this->controller = $controller;
+	$this->action = $action;
+	$this->parameters = $parameters;
+	$this->format = "html";
+	if(Pogo::lock()->getInitiatingRequest()){
+	    $this->format = Pogo::lock()->getInitiatingRequest()->getOutputFormat();
+	}
+    }
+    
+    public function execute() {
+	$controller = Util::getController($this->controller);
+	$controller->runAction($this);
+    }
+}
 ?>
