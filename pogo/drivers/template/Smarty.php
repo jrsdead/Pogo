@@ -119,7 +119,6 @@ class Smarty implements TemplateDriver
 	}
         $tpl = $this->smarty->createTemplate($view);
         $tpl->assign('title', $view);
-        $this->setDefaultVariables($tpl);
         foreach($variables as $key => $val) {
             $tpl->assign($key, $val);
         }
