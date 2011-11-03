@@ -117,7 +117,7 @@ class Smarty implements TemplateDriver
         if(strpos($view, "pogo:") !== 0) {
             $view = $view . ".tpl";
 	}
-        $tpl = $this->smarty->createTemplate($format.DIRECTORY_SEPARATOR.$view);
+        $tpl = $this->smarty->createTemplate($view);
         $tpl->assign('title', $view);
 	$tpl->assign("pogo", Pogo::lock());
 	$tpl->assign("user", Util::getCurrentUser());
