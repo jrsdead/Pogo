@@ -114,18 +114,27 @@ class Smarty implements TemplateDriver
 	array_shift($this->formats);
     }
     
-    public function render($view, $format, $variables = array()) {
-        if(strpos($view, "pogo:") !== 0) {
-            $view = $view . ".tpl";
+    public function render($view, $format, $variables = array(), $statusCode=200, $headers = NULL) {
+	if($statusCode != 200) {
+	    if($statusCode == 500) {
+		header("Status: $statusCode Internal Server Error");
+	    }
+	    else if($statusCode == 404) {
+		header("Status: $statusCode File Not Found");
+	    }
+	    else {
+		header("Status: $statusCode Something Went Wrong.");
+	    }
 	}
-        //$tpl = $this->smarty->createTemplate($view);
-        $this->smarty->assign('title', $view);
+	$this->smarty->clearAllAssign();
+	foreach($variables as $key => $value) {
+	    $this->smarty->assign($key, $value);
+	}
 	$this->smarty->assign("pogo", Pogo::lock());
 	$this->smarty->assign("user", Util::getCurrentUser());
-        foreach($variables as $key => $val) {
-            $this->smarty->assign($key, $val);
-        }
-        $this->smarty->display('file:'.Util::PogoPath().DIRECTORY_SEPARATOR."views/default".DIRECTORY_SEPARATOR.$view);
+	$this->pushFormat($format);
+	$this->smarty->display("pogo:" . $view . ".tpl");
+	$this->popFormat();
     }
     
     public function clearCache() {
