@@ -70,7 +70,7 @@ class login extends BaseController
 	    return;
 	}
 	
-	$_SESSION["logged_user"] = $user->ID;
+	$_SESSION["logged_user"] = $user->username;
 	$redirRequest = new RedirectRequest("index", NULL);
 	Pogo::lock()->dispatchRequest($redirRequest);
 	
