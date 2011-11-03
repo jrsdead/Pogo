@@ -69,8 +69,8 @@ class Smarty implements TemplateDriver
 	// Create the smarty object
 	$this->smarty = new \Smarty();
 	$this->smarty->compile_dir = sys_get_temp_dir();
-	$this->smarty->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "default");
-	$this->smarty->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "pogo");
+	$this->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "default");
+	$this->addTemplateDir(Pogo::lock()->serverRoot . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "pogo");
 	// Register our template resource
 	$this->smarty->registerResource('pogo', array(array($this,'smartyGetTemplate'),
 					      array($this,'smartyGetTimestamp'),
@@ -96,6 +96,7 @@ class Smarty implements TemplateDriver
     public function addTemplateDir($tmplDir) {
 	// Tack the new directory onto the start of the list
 	array_unshift($this->pathList, $tmplDir);
+	$this->smarty->addTemplateDir($tmplDir);
     }
     public function getTemplateDirs() {
 	return array_slice(array_reverse($this->pathList), 1);
@@ -150,11 +151,7 @@ class Smarty implements TemplateDriver
     private function getFileFromPathList($filename) {
 	$format = $this->getCurrentFormat();
 	foreach($this->pathList as $tmplDir) {
-	    $prefix = $tmplDir . DIRECTORY_SEPARATOR . "smarty" . DIRECTORY_SEPARATOR . $this->theme . DIRECTORY_SEPARATOR . $this->getCurrentFormat();
-	    if(file_exists($prefix . DIRECTORY_SEPARATOR . $filename)) {
-		return $prefix . DIRECTORY_SEPARATOR . $filename;
-	    }
-	    $prefix = $tmplDir . DIRECTORY_SEPARATOR . "smarty" . DIRECTORY_SEPARATOR . "default" . DIRECTORY_SEPARATOR . $this->getCurrentFormat();
+	    $prefix = $tmplDir . DIRECTORY_SEPARATOR . $format;
 	    if(file_exists($prefix . DIRECTORY_SEPARATOR . $filename)) {
 		return $prefix . DIRECTORY_SEPARATOR . $filename;
 	    }
