@@ -57,7 +57,7 @@ class user extends PrivateController
 	    $user = UserModel::find($args['ID']);
 	    Pogo::lock()->template->render("user/view", $request->getOutputFormat());
 	}
-	catch(Exception $e)
+	catch(RecordNotFound $e)
 	{
 	    Pogo::lock()->template->render("user/notfound", $request->getOutputFormat());
 	}
