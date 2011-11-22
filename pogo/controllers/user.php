@@ -41,7 +41,7 @@ namespace Pogo\Controllers;
 use Pogo\Util;
 use Pogo\Pogo;
 use Pogo\Interfaces\Request;
-use Pogo\Models\User;
+use Pogo\Models\User AS UserModel;
 use Pogo\Requests\RedirectRequest;
 
 class user extends PrivateController
@@ -53,7 +53,7 @@ class user extends PrivateController
     function runView(Request $request) {
 	$args = $request->getParameters();
 	
-	$user = User::find($args['ID']);
+	$user = UserModel::find($args['ID']);
 	
 	if(!$user) {
 	    Pogo::lock()->template->render("user/notfound", $request->getOutputFormat());
