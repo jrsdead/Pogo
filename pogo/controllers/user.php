@@ -53,13 +53,20 @@ class user extends PrivateController
     function runView(Request $request) {
 	$args = $request->getParameters();
 	
-	$user = UserModel::find($args['ID']);
+	try{
+	    $user = UserModel::find($args['ID']);
+	    Pogo::lock()->template->render("user/view", $request->getOutputFormat());
+	}
+	catch(Exception $e)
+	{
+	    Pogo::lock()->template->render("user/notfound", $request->getOutputFormat());
+	}
 	
-	if(!$user) {
+/*	if(!$user) {
 	    Pogo::lock()->template->render("user/notfound", $request->getOutputFormat());
 	}else {
 	    Pogo::lock()->template->render("user/view", $request->getOutputFormat());
-	}
+	}*/
     }
 }
 ?>
