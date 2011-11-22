@@ -75,5 +75,11 @@ class login extends BaseController
 	Pogo::lock()->dispatchRequest($redirRequest);
 	
     }
+    
+    function runTakeLogout(Request $request) {
+	$_SESSION["logged_user"] = NULL;
+	$redirRequest = new RedirectRequest("index", NULL);
+	Pogo::lock()->dispatchRequest($redirRequest);
+    }
 }
 ?>
