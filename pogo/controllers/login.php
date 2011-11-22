@@ -55,7 +55,7 @@ class login extends BaseController
 	$params = array();
 	
 	if($request != $origRequest) {
-	    $params["origin"] = htmlentities(serialize($origRequest));
+	    $params["origin"] = serialize($origRequest);
 	}
 	Pogo::lock()->template->render("login/showLogin", $request->getOutputFormat(), $params);
     }
@@ -73,7 +73,7 @@ class login extends BaseController
 	$_SESSION["logged_user"] = $user->id;
 	
 	if(isset($args["origin"]) && $args["origin"]) {
-	    $origRequest = html_entity_decode(unserialize($args["origin"]));
+	    $origRequest = unserialize($args["origin"]);
 	    $origRequest->execute();
 	}else{
 	    $redirRequest = new RedirectRequest("index", NULL);
