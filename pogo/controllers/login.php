@@ -73,7 +73,7 @@ class login extends BaseController
 	$_SESSION["logged_user"] = $user->id;
 	
 	if(isset($args["origin"]) && $args["origin"]) {
-	    $origRequest = unserialize(html_entity_decode($args["origin"]));
+	    $origRequest = html_entity_decode(unserialize($args["origin"]));
 	    $origRequest->execute();
 	}else{
 	    $redirRequest = new RedirectRequest("index", NULL);
