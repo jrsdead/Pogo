@@ -71,8 +71,15 @@ class login extends BaseController
 	}
 	
 	$_SESSION["logged_user"] = $user->id;
-	$redirRequest = new RedirectRequest("index", NULL);
-	Pogo::lock()->dispatchRequest($redirRequest);
+	
+	if(isset($args["origin"]) && $args["origin"]) {
+	    $origRequest = unserialize(html_entity_decode($args["origin"]));
+	    $origRequest->execute();
+	}else{
+	    $redirRequest = new RedirectRequest("index", NULL);
+	    Pogo::lock()->dispatchRequest($redirRequest);
+	}
+	
 	
     }
     
