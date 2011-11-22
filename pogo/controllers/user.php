@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of login
+ * Description of user
  *
  * @author jrsdead
  */
@@ -32,7 +32,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
  * PROJECT: pogo
- * FILE: login.php
+ * FILE: user.php
  * DESCRIPTION: DESCRIPTION GOES HERE
  */
 
@@ -44,42 +44,22 @@ use Pogo\Interfaces\Request;
 use Pogo\Models\User;
 use Pogo\Requests\RedirectRequest;
 
-class login extends BaseController
+class user extends PrivateController
 {
     function defaultAction() {
-	return "login";
+	return "view";
     }
     
-    function runLogin(Request $request) {
-	$origRequest = Pogo::lock()->getInitiatingRequest();
-	$params = array();
-	
-	if($request != $origRequest) {
-	    $params["origin"] = htmlentities(serialize($origRequest));
-	}
-	Pogo::lock()->template->render("login/showLogin", $request->getOutputFormat(), $params);
-    }
-    
-    function runTakeLogin(Request $request) {
+    function runView(Request $request) {
 	$args = $request->getParameters();
 	
-	$user = User::find_by_username_and_password($args["user"],$args["pass"]);
+	$user = User::find($args['ID']);
 	
 	if(!$user) {
-	    Util::showError(401, "Invalid username or password");
-	    return;
+	    Pogo::lock()->template->render("user/notfound", $request->getOutputFormat());
+	}else {
+	    Pogo::lock()->template->render("user/view", $request->getOutputFormat());
 	}
-	
-	$_SESSION["logged_user"] = $user->id;
-	$redirRequest = new RedirectRequest("index", NULL);
-	Pogo::lock()->dispatchRequest($redirRequest);
-	
-    }
-    
-    function runTakeLogout(Request $request) {
-	$_SESSION["logged_user"] = NULL;
-	$redirRequest = new RedirectRequest("index", NULL);
-	Pogo::lock()->dispatchRequest($redirRequest);
     }
 }
 ?>

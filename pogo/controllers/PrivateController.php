@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of login
+ * Description of PrivateController
  *
  * @author jrsdead
  */
@@ -32,54 +32,26 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * 
  * PROJECT: pogo
- * FILE: login.php
+ * FILE: PrivateController.php
  * DESCRIPTION: DESCRIPTION GOES HERE
  */
 
 namespace Pogo\Controllers;
 
-use Pogo\Util;
 use Pogo\Pogo;
+use Pogo\Util;
 use Pogo\Interfaces\Request;
-use Pogo\Models\User;
-use Pogo\Requests\RedirectRequest;
+use Pogo\Requests\InternalRequest;
 
-class login extends BaseController
+class PrivateController extends BaseController
 {
-    function defaultAction() {
-	return "login";
-    }
-    
-    function runLogin(Request $request) {
-	$origRequest = Pogo::lock()->getInitiatingRequest();
-	$params = array();
-	
-	if($request != $origRequest) {
-	    $params["origin"] = htmlentities(serialize($origRequest));
+    function runAction(Request $request) {
+	if(Util::getCurrentUser() != NULL) {
+	    parent::runAction($request);
+	} else {
+	    $redirRequest = new InternalRequest("login","login");
+	    Pogo::lock()->dispatchRequest($redirRequest);
 	}
-	Pogo::lock()->template->render("login/showLogin", $request->getOutputFormat(), $params);
-    }
-    
-    function runTakeLogin(Request $request) {
-	$args = $request->getParameters();
-	
-	$user = User::find_by_username_and_password($args["user"],$args["pass"]);
-	
-	if(!$user) {
-	    Util::showError(401, "Invalid username or password");
-	    return;
-	}
-	
-	$_SESSION["logged_user"] = $user->id;
-	$redirRequest = new RedirectRequest("index", NULL);
-	Pogo::lock()->dispatchRequest($redirRequest);
-	
-    }
-    
-    function runTakeLogout(Request $request) {
-	$_SESSION["logged_user"] = NULL;
-	$redirRequest = new RedirectRequest("index", NULL);
-	Pogo::lock()->dispatchRequest($redirRequest);
     }
 }
 ?>

@@ -36,9 +36,9 @@
  * DESCRIPTION: DESCRIPTION GOES HERE
  */
 
-namespace Raptor\Interfaces\Providers;
+namespace Pogo\Interfaces\Providers;
 
-use Raptor\Error;
+use Pogo\Error;
 
 interface ErrorLogProvider extends Provider
 {
